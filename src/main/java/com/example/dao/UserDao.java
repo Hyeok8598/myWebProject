@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import com.example.mapper.UserMapper;
 import com.example.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,15 +15,14 @@ import java.util.Optional;
 @Repository
 public class UserDao {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final UserMapper userMapper;
 
-    public UserDao(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public UserDao(UserMapper userMapper) {
+        this.userMapper = userMapper;
     }
     
     public Optional<User> getUserByEmail(String email) {
-    	String sql = "SELECT id, name, email, password FROM users WHERE email = ?";
-    	return jdbcTemplate.query(sql,  userRowMapper, email).stream().findFirst();
+    	return Optional.ofNullable(userMapper.getUserByEmail(email));
     }
     
     private final RowMapper<User> userRowMapper = (rs, rowNum) -> {
