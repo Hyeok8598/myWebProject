@@ -1,5 +1,10 @@
 package com.example.config;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
+
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -22,5 +27,26 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
+    }
+    
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+    	super.onStartup(servletContext);
+    	
+        DispatcherServlet dispatcherServlet = new DispatcherServlet();
+        dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
+        
+        ServletRegistration.Dynamic dispatcher = (ServletRegistration.Dynamic)servletContext.getServletRegistration("dispatcher");
+        
+        // DispatcherServlet을 서블릿 컨텍스트에 추가
+        if(dispatcher == null) {
+        	dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet());
+        	dispatcher.setLoadOnStartup(1);
+            dispatcher.addMapping("/");
+            dispatcher.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+        }
+        else {
+        	dispatcher.setInitParameter("throwExceptionIfNoHandlerFound", "true");
+        }   
     }
 }

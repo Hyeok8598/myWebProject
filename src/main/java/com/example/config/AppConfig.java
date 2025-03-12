@@ -9,9 +9,15 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -23,6 +29,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
+@EnableAspectJAutoProxy
 @ComponentScan(basePackages = "com.example")
 @MapperScan(basePackages = "com.example.mapper") // MyBatis 매퍼 인터페이스 스캔
 public class AppConfig implements WebMvcConfigurer {
@@ -68,5 +75,3 @@ public class AppConfig implements WebMvcConfigurer {
         return resolver;
     }
 }
-
-
