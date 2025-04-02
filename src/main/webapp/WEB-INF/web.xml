@@ -7,6 +7,7 @@
     <display-name>myWebProject</display-name>
 
     <!-- 정적 리소스 (CSS, JS, 이미지) 서빙을 위한 매핑 -->
+    <!-- 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/css/*</url-pattern>
@@ -21,7 +22,7 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/js/*</url-pattern>
     </servlet-mapping>
-
+	-->
     <!-- 기본 홈 페이지 설정 -->
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
